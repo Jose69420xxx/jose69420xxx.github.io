@@ -31,7 +31,7 @@ function App() {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "https://jose69420xxx.github.io");
+    params.append("redirect_uri", "https://jose69420xxx.github.io/index.html");
     params.append("scope", "user-read-private user-read-email playlist-modify-private playlist-modify-public");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
