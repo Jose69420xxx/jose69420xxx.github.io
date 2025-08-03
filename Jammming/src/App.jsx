@@ -16,7 +16,7 @@ function App() {
       getAccessToken(secrets.clientId, code).then(token => {
         setAuthenticated(true);
         setToken(token);
-        fetchProfile(token).then(data => setProfile(data));
+        fetchProfile(token).then(data => setProfile(data.json()));
       });
     }
   }, []);
