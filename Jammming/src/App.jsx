@@ -91,7 +91,7 @@ function App() {
         <button onClick={redirectToAuthCodeFlow}>Login with Spotify</button>
       ) : (
         <div>
-          <h1>Welcome, {profile?.display_name || "Spotify User"}!</h1>
+          <h1>Welcome, {profile.display_name}!</h1>
         </div>
       )}
     </div>
