@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
-import secrets from './secrets/secrets'; // Must export { clientId: "..." }
+import secrets from './secrets/secrets';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
 
-  // Step 1: Check for "code" in URL on page load
+  const redirectUri = "https://jose69420xxx.github.io/index.html";
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
 
     if (code) {
-      // Exchange code for access token
       getAccessToken(secrets.clientId, code).then(token => {
         setAuthenticated(true);
-        setToken(token);
-        fetchProfile(token).then(data => setProfile(data.json()));
+        fetchProfile(token).then(data => setProfile(data.display_name));
       });
     }
   }, []);
@@ -31,7 +29,7 @@ function App() {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "https://jose69420xxx.github.io/index.html");
+    params.append("redirect_uri", redirectUri);
     params.append("scope", "user-read-private user-read-email playlist-modify-private playlist-modify-public");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -46,7 +44,7 @@ function App() {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "https://jose69420xxx.github.io");
+    params.append("redirect_uri", redirectUri);
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -91,11 +89,12 @@ function App() {
         <button onClick={redirectToAuthCodeFlow}>Login with Spotify</button>
       ) : (
         <div>
-          <h1>Welcome, {profile.display_name}!</h1>
+          <h1>Welcome, {profile || "Spotify User"}!</h1>
         </div>
       )}
     </div>
-  )
-};
+  );
+}
 
 export default App;
+
