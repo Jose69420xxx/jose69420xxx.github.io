@@ -17,7 +17,7 @@ function App() {
         fetchProfile(token).then(data => setProfile(data.display_name));
       });
     }
-  }, [authenticated]);
+  }, []);
 
   async function redirectToAuthCodeFlow() {
     const clientId = secrets.clientId;
