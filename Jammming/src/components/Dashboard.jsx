@@ -5,7 +5,9 @@ function Dashboard() {
 
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
+    const params = new URLSearchParams(window.location.search);
+	const code = params.get("code");
+    const token = getAccessToken(code);
     setAccessToken(token);
   }, []);
 
@@ -30,3 +32,5 @@ function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;

@@ -10,11 +10,8 @@ function App() {
 
   return (
     <div className="App">
-      if(loggedIn){
-        <Dashboard />
-      } else {
-        <Login />
-      }
+      <h1>Spotify Playlist Manager</h1>
+      {loggedIn ? <Dashboard /> : <Login />}
     </div>
   );
 }

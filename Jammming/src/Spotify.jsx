@@ -47,12 +47,12 @@ export function getCode(){
 };
 
 //This function fetches the access token using the authorization code and saves it tot he browser's local storage
-export async function getAccessToken() {
+export async function getAccessToken(code) {
     const verifier = localStorage.getItem("verifier");
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
-    params.append("code", getCode());
+    params.append("code", code);
     params.append("redirect_uri", redirectUri);
     params.append("code_verifier", verifier);
 
@@ -64,6 +64,7 @@ export async function getAccessToken() {
 
     const { access_token } = await result.json();
     localStorage.setItem("access_token", access_token);
+    return access_token;
 }
 
 //This function checks if the browser has a token in local storage
